@@ -1,0 +1,96 @@
+body {
+  background-color: rgb(30, 0, 77);
+  font-family: "Tajawal", sans-serif;
+}
+
+.mainDiv {
+  direction: rtl;
+}
+
+.centerDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tasksTable {
+  background-color: rgb(239, 239, 239);
+  width: 60%;
+  margin-top: 130px;
+}
+
+.header {
+  width: 100%;
+  text-align: center;
+  background-color: rgb(92, 52, 155);
+  color: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+h1 {
+  display: inline;
+}
+
+button {
+  border: none;
+  font-size: 20px;
+  box-shadow: 0px 3px 5px rgba(168, 168, 168, 0.38);
+}
+
+button.circular {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  line-height: 0;
+}
+
+button.circular:hover {
+  cursor: pointer;
+}
+
+.addBtn {
+  float: right;
+  background: white;
+  margin-right: 10px;
+}
+.tasks {
+  padding: 20px;
+}
+
+.task {
+  display: flex;
+  background-color: white;
+  padding: 4px;
+  border-bottom: solid black 1px;
+  transition: box-shadow 0.2s;
+}
+
+.task:hover {
+  box-shadow: 0px 3px 15px rgba(97, 97, 97, 0.843);
+}
+
+.taskInfo {
+  width: 70%;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 20%;
+  color: white;
+}
+
+.deleteBtn {
+  background-color: rgb(114, 0, 0);
+  color: white;
+}
+.checkBtn {
+  background-color: rgb(0, 150, 30);
+  color: white;
+}
+.editBtn {
+  background-color: rgba(0, 16, 197, 0.692);
+  color: white;
+}

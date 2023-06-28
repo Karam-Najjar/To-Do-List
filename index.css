@@ -3,9 +3,9 @@ body {
   font-family: "Tajawal", sans-serif;
 }
 
-.mainDiv {
+/* .mainDiv {
   direction: rtl;
-}
+} */
 
 .centerDiv {
   display: flex;

@@ -1,82 +1,96 @@
 let currentDate = new Date().toLocaleDateString();
-let addBtn = document.getElementById("addBtn");
-let idCounter = 1;
+let idCounter = 0;
+let isChecked = false;
 
 document.getElementById("tasks").innerHTML = "";
-
-addBtn.addEventListener("click", add);
-
-//GPT4//
+document.getElementById("addBtn").addEventListener("click", addTask);
 document.getElementById("tasks").addEventListener("click", deleteTask);
-//GPT4//
-
 document.getElementById("tasks").addEventListener("click", editTask);
+document.getElementById("tasks").addEventListener("click", checkTask);
 
-function add() {
+function addTask() {
   let taskName = prompt("Insert the task name");
+  // cancel case
+  if (taskName == null) {
+    return;
+  }
+  // Empty task name case
   if (taskName.trim() == "") {
     alert("Please insert a valid name");
     return;
   }
-  let newId = idCounter;
   idCounter++;
-  let temString = `
-      <!-- TASK -->
-      <div id = "task-${newId}" class="task">
-        <!-- TASKS INFO -->
-        <div class="taskInfo">
-          <h2>${taskName}</h2>
-          <div>
-            <span class="material-symbols-outlined">
-              calendar_today
-            </span>
-            <span>${currentDate}</span>
-          </div>
+  let taskString = `
+    <!-- TASK -->
+    <div id="task-${idCounter}" class="task">
+      <!-- TASKS INFO -->
+      <div class="taskInfo">
+        <h2 id="name-${idCounter}">${taskName}</h2>
+        <div>
+          <span class="material-symbols-outlined">
+            calendar_today
+          </span>
+          <span>${currentDate}</span>
         </div>
-        <!--// TASKS INFO //-->
-
-        <!-- TASKS ACTIONS -->
-        <div class="actions">
-          <button id="delete-${newId}" class="circular deleteBtn">
-            <span class="material-symbols-outlined"> delete </span>
-          </button>
-          <button id="check-${newId}" class="circular checkBtn">
-            <span class="material-symbols-outlined"> check </span>
-          </button>
-          <button id="edit-${newId}" class="circular editBtn">
-            <span class="material-symbols-outlined"> edit </span>
-          </button>
-        </div>
-        <!--// TASKS ACTIONS //-->
       </div>
-      <!--// TASK //-->
-      `;
-  document.getElementById("tasks").innerHTML += temString;
+      <!--// TASKS INFO //-->
+
+      <!-- TASKS ACTIONS -->
+      <div class="actions">
+        <button id="delete-${idCounter}" class="circular deleteBtn">
+          <span class="material-symbols-outlined"> delete </span>
+        </button>
+        <button id="check-${idCounter}" class="circular checkBtn">
+          <span class="material-symbols-outlined"> check </span>
+        </button>
+        <button id="edit-${idCounter}" class="circular editBtn">
+          <span class="material-symbols-outlined"> edit </span>
+        </button>
+      </div>
+      <!--// TASKS ACTIONS //-->
+    </div>
+    <!--// TASK //-->
+  `;
+  document.getElementById("tasks").innerHTML += taskString;
 }
 
-// GPT-4 //
 function deleteTask(e) {
   if (e.target.closest(".deleteBtn")) {
-    // Get the delete button and corresponding task div
     let deleteBtn = e.target.closest(".deleteBtn");
     let taskId = deleteBtn.id.split("-")[1];
     let taskDiv = document.getElementById(`task-${taskId}`);
-    confirm("Are you sure??");
-    // Remove the task div from the DOM
-    taskDiv.remove();
+    if (confirm("Are you sure?")) {
+      taskDiv.remove();
+    }
   }
 }
-// Gpt-4 //
 
 function editTask(x) {
   if (x.target.closest(".editBtn")) {
     let editBtn = x.target.closest(".editBtn");
     let taskId = editBtn.id.split("-")[1];
-    let taskDiv = document.getElementById(`task-${taskId}`);
     let taskName = prompt("Insert the task name");
     if (taskName.trim() == "") {
-      alert("Please imsert a valid name");
+      alert("Please insert a valid name");
       return;
     }
+    document.getElementById(`name-${taskId}`).innerHTML = taskName.trim();
+  }
+}
+
+function checkTask(x) {
+  if (x.target.closest(".checkBtn")) {
+    let checkBtn = x.target.closest(".checkBtn");
+    let taskId = checkBtn.id.split("-")[1];
+    let taskElement = document.getElementById(`task-${taskId}`);
+
+    let currentColor = taskElement.style.backgroundColor;
+    let newColor = currentColor === "green" ? "#ffffff" : "green";
+
+    taskElement.style.backgroundColor = newColor;
+
+    let iconElement = checkBtn.querySelector(".material-symbols-outlined");
+    iconElement.textContent =
+      newColor === "#ffffff" ? "check" : "check_box_outline_blank";
   }
 }

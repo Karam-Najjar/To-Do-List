@@ -69,7 +69,9 @@ function editTask(x) {
   if (x.target.closest(".editBtn")) {
     let editBtn = x.target.closest(".editBtn");
     let taskId = editBtn.id.split("-")[1];
-    let taskName = prompt("Insert the task name");
+    let taskNameElement = document.getElementById(`name-${taskId}`);
+    let defaultName = taskNameElement.innerHTML;
+    let taskName = prompt("Insert the task name", defaultName);
     if (taskName.trim() == "") {
       alert("Please insert a valid name");
       return;

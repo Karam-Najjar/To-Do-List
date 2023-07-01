@@ -2,6 +2,14 @@ let currentDate = new Date().toLocaleDateString();
 let idCounter = 0;
 let isChecked = false;
 
+window.addEventListener("load", function () {
+  let storedTasks = localStorage.getItem("tasks");
+  if (storedTasks) {
+    document.getElementById("tasks").innerHTML = storedTasks;
+    idCounter = document.querySelectorAll(".task").length;
+  }
+});
+
 document.getElementById("tasks").innerHTML = "";
 document.getElementById("addBtn").addEventListener("click", addTask);
 document.getElementById("tasks").addEventListener("click", deleteTask);
@@ -52,6 +60,8 @@ function addTask() {
     <!--// TASK //-->
   `;
   document.getElementById("tasks").innerHTML += taskString;
+
+  localStorage.setItem("tasks", document.getElementById("tasks").innerHTML);
 }
 
 function deleteTask(e) {
@@ -61,6 +71,8 @@ function deleteTask(e) {
     let taskDiv = document.getElementById(`task-${taskId}`);
     if (confirm("Are you sure?")) {
       taskDiv.remove();
+
+      localStorage.setItem("tasks", document.getElementById("tasks").innerHTML);
     }
   }
 }
@@ -77,6 +89,8 @@ function editTask(x) {
       return;
     }
     document.getElementById(`name-${taskId}`).innerHTML = taskName.trim();
+
+    localStorage.setItem("tasks", document.getElementById("tasks").innerHTML);
   }
 }
 
@@ -94,5 +108,7 @@ function checkTask(x) {
     let iconElement = checkBtn.querySelector(".material-symbols-outlined");
     iconElement.textContent =
       newColor === "#ffffff" ? "check" : "check_box_outline_blank";
+
+    localStorage.setItem("tasks", document.getElementById("tasks").innerHTML);
   }
 }
